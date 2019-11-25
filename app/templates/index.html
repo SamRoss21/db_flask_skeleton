@@ -1,0 +1,28 @@
+<head>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src='static/js/concept.js'></script>
+</head>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.concept.label }}<br>
+            {{ form.concept}}<br>
+            {% for error in form.concept.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    {% for concept in concepts %}
+        <ul id='{{ concept.concept }}'>
+            <li>{{ concept.concept }}</li>
+            <li>User: {{ concept.author.username }}</li>
+            <button type="button" class='delete' value="{{ concept.concept }}">Delete</button>
+        </ul>
+    {% endfor %}
+{% endblock %}
